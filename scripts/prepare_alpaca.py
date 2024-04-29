@@ -20,8 +20,8 @@ IGNORE_INDEX = -1
 
 
 def prepare(
-    destination_path: Path = Path("data/alpaca"), 
-    tokenizer_path: Path = Path("checkpoints/lit-llama/tokenizer.model"),
+    destination_path: Path = Path("data/alpaca1"), 
+    tokenizer_path: Path = Path("/home/jskai/workspace/models/lit-llama/tokenizer.model"),
     test_split_size: int = 2000,
     max_seq_length: int = 256,
     seed: int = 42,
@@ -100,6 +100,8 @@ def prepare_sample(example: dict, tokenizer: Tokenizer, max_length: int, mask_in
     labels = encoded_full_prompt_and_response.clone()
     if mask_inputs:
         labels[:len(encoded_full_prompt)] = IGNORE_INDEX
+    import pdb
+    pdb.set_trace()
 
     return {**example, "input_ids": encoded_full_prompt_and_response, "input_ids_no_response": encoded_full_prompt, "labels": labels}
 

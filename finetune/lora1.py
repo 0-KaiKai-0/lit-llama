@@ -29,7 +29,7 @@ from scripts.prepare_alpaca import generate_prompt
 
 
 instruction_tuning = True
-eval_interval = 200
+eval_interval = 300
 eval_iters = 50
 log_interval = 10
 devices = torch.cuda.device_count()
@@ -45,7 +45,7 @@ max_seq_length = 1024  # see scripts/prepare_cnndm.py
 lora_r = 16
 lora_alpha = 16
 lora_dropout = 0.05
-warmup_iters = 100
+warmup_iters = 50
 
 rouge = Rouge()
 
@@ -113,7 +113,7 @@ def train(
 
     Loosely based on the nanoGPT implementation: https://github.com/karpathy/nanoGPT.
     """
-    init_iter = 281600
+    init_iter = 230400
     step_count = 0
     for param_group in optimizer.param_groups:
         param_group['lr'] = init_lr
@@ -234,8 +234,8 @@ def test(fabric: L.Fabric, model: torch.nn.Module, test_data: np.ndarray, tokeni
     labels = []
 
     for k in tqdm(range(int(len(test_data)))):    
-        input_ids, targets = get_batch(fabric, test_data)   
-        if input_ids.shape[1] + targets.shape[1] <= max_seq_length: 
+        input_ids, targets = get_batch(fabric, test_data) 
+        if input_ids.shape[1] + targets.shape[1] <= max_seq_length:   
             output = generate(
                 model,
                 idx=input_ids.squeeze(0),

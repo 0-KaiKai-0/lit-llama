@@ -117,6 +117,36 @@ python generate.py --quantize gptq.int4 --checkpoint_path checkpoints/lit-llama/
 
 ## Finetune the model
 
+### CNN DailyMail
+
+1. Download the data and generate a instruction tuning dataset:
+
+   ```bash
+   python scripts/prepare_cnndm0.py
+   ```
+
+2. Run the finetuning script
+
+   ```bash
+   bash run-cnndm.sh
+   ```
+
+### NarrativeQA
+
+1. Download the data and generate a instruction tuning dataset:
+
+   ```bash
+   python scripts/prepare_nqa.py
+   ```
+
+2. Run the finetuning script
+
+   ```bash
+   bash run-nq.sh
+   ```
+
+
+
 We provide a simple training scripts in `finetune/lora.py` and `finetune/adapter.py` that instruction-tunes a pretrained model on the [Alpaca](https://github.com/tatsu-lab/stanford_alpaca) dataset using the techniques of [LoRA](https://arxiv.org/abs/2106.09685) and [Adapter](https://arxiv.org/abs/2303.16199).
 
 1. Download the data and generate a instruction tuning dataset:
